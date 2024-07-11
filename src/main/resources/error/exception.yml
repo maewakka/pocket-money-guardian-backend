@@ -1,0 +1,8 @@
+not_found:
+  status: 404
+  message: 찾지 못하겠소이다.
+
+internal_server_error:
+  status: 500
+  message: 서버 에러이오.
+
