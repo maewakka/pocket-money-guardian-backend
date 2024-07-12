@@ -1,5 +1,6 @@
 package com.woo.backend.domain.user.entity;
 
+import com.woo.backend.domain.user.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,12 +16,15 @@ public class User {
     @SequenceGenerator(name="USER_SEQUENCE_GENERATOR", sequenceName = "USER_SEQUENCE", initialValue = 1, allocationSize = 1)
     private Long id;
 
+    @Column(unique = true)
     private String email;
     private String password;
-
     private String name;
     private String profileImgPath;
     private Boolean kakaoSignUp;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Builder
     public User(String email, String password, String name, String profileImgPath, Boolean kakaoSignUp) {
