@@ -1,5 +1,8 @@
 package com.woo.backend.global.security.config;
 
+import com.woo.backend.global.security.filter.JwtFilter;
+import com.woo.backend.global.security.service.GuardianUserDetailsService;
+import com.woo.backend.global.security.service.JwtValidateService;
 import com.woo.backend.global.security.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final GuardianUserDetailsService guardianUserDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final JwtValidateService jwtValidateService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -28,7 +33,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/users/sign-up", "/users/sign-in").permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+                .addFilterBefore(new JwtFilter(guardianUserDetailsService, jwtTokenProvider, jwtValidateService),UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

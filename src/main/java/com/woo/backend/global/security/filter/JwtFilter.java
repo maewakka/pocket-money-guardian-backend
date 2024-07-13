@@ -4,6 +4,7 @@ import com.woo.backend.domain.user.enums.Role;
 import com.woo.backend.global.security.service.GuardianUserDetailsService;
 import com.woo.backend.global.security.service.JwtValidateService;
 import com.woo.backend.global.security.util.JwtTokenProvider;
+import com.woo.exception.util.BizException;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -33,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(!PERMIT_URL.contains(request.getServletPath())) {
             String accessToken = jwtTokenProvider.resolveToken(request);
 
-            if(accessToken == null || accessToken.isEmpty()) throw new BindException("token_not_valid");
+            if(accessToken == null || accessToken.isEmpty()) throw new BizException("token_not_valid");
             setAuthentication(accessToken, request);
         }
 

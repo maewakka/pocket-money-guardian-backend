@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import static com.woo.backend.global.config.CacheConfig.USER_CACHE;
+
 @Service
 @RequiredArgsConstructor
 public class JwtValidateService {
