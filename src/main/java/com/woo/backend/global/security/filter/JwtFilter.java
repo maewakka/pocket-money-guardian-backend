@@ -1,8 +1,6 @@
 package com.woo.backend.global.security.filter;
 
-import com.woo.backend.domain.user.enums.Role;
 import com.woo.backend.global.security.service.GuardianUserDetailsService;
-import com.woo.backend.global.security.service.JwtValidateService;
 import com.woo.backend.global.security.util.JwtTokenProvider;
 import com.woo.exception.util.BizException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -18,7 +16,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.net.BindException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,7 +23,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final GuardianUserDetailsService guardianUserDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final JwtValidateService jwtValidateService;
 
     private final static List<String> PERMIT_URL = List.of("/users/sign-up", "/users/sign-in");
     @Override
@@ -42,7 +38,8 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private void setAuthentication(String token, HttpServletRequest request) throws ExpiredJwtException {
-        UserDetails userDetails = guardianUserDetailsService.loadUserByUsername(jwtValidateService.getUserEmail(token));
+        String email = jwtTokenProvider.extractAllClaims(token).get("email", String.class);
+        UserDetails userDetails = guardianUserDetailsService.loadUserByUsername(email);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);

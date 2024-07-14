@@ -4,6 +4,7 @@ import com.woo.backend.domain.user.entity.User;
 import com.woo.backend.domain.user.entity.repository.UserRepository;
 import com.woo.backend.global.security.dto.GuardianUserDetails;
 import com.woo.exception.util.BizException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +15,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GuardianUserDetailsService implements UserDetailsService {
 
-    private final JwtValidateService jwtValidateService;
+    private final GetUserWithCachingService getUserWithCachingService;
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = jwtValidateService.findUserByEmail(email);
+        User user = getUserWithCachingService.getUserByEmail(email);
 
         return new GuardianUserDetails(user);
     }

@@ -1,6 +1,8 @@
 package com.woo.backend.domain.user.entity;
 
+import com.woo.backend.domain.challenge.core.entity.Challenge;
 import com.woo.backend.domain.user.enums.Role;
+import com.woo.backend.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +11,7 @@ import lombok.*;
 @ToString
 @Table(name = "guardian_user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "USER_SEQUENCE_GENERATOR")

@@ -12,7 +12,6 @@ sign_up_fail:
   status: 409
   message: 회원 가입에 실패하였습니다.
 
-
 ### JWT ###
 token_expired:
   status: 401
@@ -28,3 +27,8 @@ minio_can_not_put:
 minio_can_not_get:
   status: 404
   message: 미디어 파일을 가져올 수 없습니다.
+
+### CHALLENGE ###
+challenge_already_exist:
+  status: 409
+  message: 이미 챌린징 중입니다.
