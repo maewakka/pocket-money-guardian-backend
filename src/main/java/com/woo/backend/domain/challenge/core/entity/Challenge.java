@@ -23,11 +23,14 @@ public class Challenge extends BaseTimeEntity {
 
     private Integer limit;
     private Integer initialDay;
+    @ManyToOne
+    private User owner;
 
     @Builder
-    public Challenge(String name, Integer limit, Integer initialDay) {
+    public Challenge(String name, Integer limit, Integer initialDay, User owner) {
         this.name = name;
         this.limit = limit;
         this.initialDay = initialDay;
+        this.owner = owner;
     }
 }

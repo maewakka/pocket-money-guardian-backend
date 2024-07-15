@@ -3,6 +3,7 @@ package com.woo.backend.domain.user.facade;
 import com.woo.backend.domain.user.dto.req.SignInReq;
 import com.woo.backend.domain.user.dto.req.SignUpReq;
 import com.woo.backend.domain.user.dto.resp.SignInResp;
+import com.woo.backend.domain.user.dto.resp.UserResp;
 import com.woo.backend.domain.user.entity.User;
 import com.woo.backend.domain.user.service.EmailVerificationService;
 import com.woo.backend.domain.user.service.GetUserService;
@@ -12,6 +13,8 @@ import com.woo.exception.util.BizException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -42,5 +45,9 @@ public class UserFacade {
 
     public void verifyingCode(String email, String code) {
         emailVerificationService.verifyingCode(email, code);
+    }
+
+    public List<UserResp> getAllUserByNickName(String nickName, User user) {
+        return getUserService.findAllUserByNickName(nickName, user);
     }
 }

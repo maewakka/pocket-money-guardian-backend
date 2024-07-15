@@ -20,9 +20,7 @@ public class RegisterChallengeService {
     private final ParticipantsRepository participantsRepository;
 
     public void createChallenge(User user, ChallengeReq req) {
-        if(participantsRepository.existsByParticipant(user)) throw new BizException("challenge_already_exist");
-
-        Challenge challenge = challengeRepository.save(req.toEntity());
+        Challenge challenge = challengeRepository.save(req.toEntity(user));
         participantsRepository.save(Participants.builder()
                         .challenge(challenge)
                         .participant(user)

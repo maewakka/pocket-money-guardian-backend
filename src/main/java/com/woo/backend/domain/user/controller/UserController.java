@@ -3,11 +3,17 @@ package com.woo.backend.domain.user.controller;
 import com.woo.backend.domain.user.dto.req.SignInReq;
 import com.woo.backend.domain.user.dto.req.SignUpReq;
 import com.woo.backend.domain.user.dto.resp.SignInResp;
+import com.woo.backend.domain.user.dto.resp.UserResp;
+import com.woo.backend.domain.user.entity.User;
 import com.woo.backend.domain.user.facade.UserFacade;
+import com.woo.backend.global.security.dto.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +47,11 @@ public class UserController {
         userFacade.verifyingCode(email, code);
 
         return ResponseEntity.ok("인증이 완료되었습니다.");
+    }
+
+    @GetMapping
+    public List<UserResp> getAllUserByNickName(@RequestParam(name = "nickName") @Nullable String nickName, @CurrentUser User user) {
+        return userFacade.getAllUserByNickName(nickName, user);
     }
 
 }

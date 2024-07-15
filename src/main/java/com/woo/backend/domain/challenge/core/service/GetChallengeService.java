@@ -15,8 +15,8 @@ public class GetChallengeService {
     private final ChallengeRepository challengeRepository;
     private final ParticipantsRepository participantsRepository;
 
-    public ChallengeResp getChallengeById(Long id) {
-        Challenge challenge = challengeRepository.findById(id).orElseThrow(() -> new BizException("challenge_not_found"));
-        return ChallengeResp.of(challenge);
+    public Challenge getChallengeById(Long id) {
+
+        return challengeRepository.findById(id).orElseThrow(() -> new BizException("challenge_not_found"));
     }
 }

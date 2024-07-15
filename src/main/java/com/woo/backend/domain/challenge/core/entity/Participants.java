@@ -19,7 +19,6 @@ public class Participants {
     private Challenge challenge;
 
     @ManyToOne
-    @JoinColumn(unique = true)
     private User participant;
 
     @Builder

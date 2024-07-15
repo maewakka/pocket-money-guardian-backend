@@ -17,7 +17,9 @@ email_verify_fail:
 email_not_verified:
   status: 403
   message: 이메일이 인증되지 않았습니다. 이메일을 인증해주세요.
-
+duplicated_nickname:
+  status: 409
+  message: 이미 존재하는 닉네임입니다.
 ### JWT ###
 token_expired:
   status: 401

@@ -1,6 +1,7 @@
 package com.woo.backend.domain.user.service;
 
 import com.woo.backend.domain.user.dto.req.SignInReq;
+import com.woo.backend.domain.user.dto.resp.UserResp;
 import com.woo.backend.domain.user.entity.User;
 import com.woo.backend.domain.user.entity.repository.UserRepository;
 import com.woo.backend.global.minio.util.MinioUtil;
@@ -8,6 +9,9 @@ import com.woo.exception.util.BizException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +30,11 @@ public class GetUserService {
         if(!passwordEncoder.matches(req.getPassword(), user.getPassword())) throw new BizException("login_fail");
 
         return user;
+    }
+
+    public List<UserResp> findAllUserByNickName(String nickName, User currentUser) {
+        return userRepository.findAllUserByNickName(nickName).stream()
+                .filter(user -> !user.getId().equals(currentUser.getId()))
+                .map(UserResp::of).collect(Collectors.toList());
     }
 }

@@ -20,10 +20,11 @@ public class RegisterUserService {
 
 
     public void createUser(final SignUpReq req) {
-        if (duplicateEmailCheck(req.getEmail())) throw new BizException("user_already_exist");
+        if(duplicateEmailCheck(req.getEmail())) throw new BizException("user_already_exist");
+        if(duplicateEmailCheck(req.getNickName())) throw new BizException("duplicated_nickname");
 
         EmailVerifyingDto emailVerifyingDto = (EmailVerifyingDto) redisTemplate.opsForValue().get("verify:" + req.getEmail());
-        if(!emailVerifyingDto.getStatus()) throw new BizException("email_not_verified");
+        if(emailVerifyingDto == null || !emailVerifyingDto.getStatus()) throw new BizException("email_not_verified");
 
         userRepository.save(req.toEntity(passwordEncoder));
     }
@@ -31,6 +32,10 @@ public class RegisterUserService {
 
     private Boolean duplicateEmailCheck(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    private Boolean duplicateNickNameCheck(String nickName) {
+        return userRepository.existsByNickName(nickName);
     }
 
 }

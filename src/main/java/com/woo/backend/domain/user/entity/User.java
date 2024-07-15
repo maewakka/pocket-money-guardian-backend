@@ -1,6 +1,5 @@
 package com.woo.backend.domain.user.entity;
 
-import com.woo.backend.domain.challenge.core.entity.Challenge;
 import com.woo.backend.domain.user.enums.Role;
 import com.woo.backend.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -21,7 +20,8 @@ public class User extends BaseTimeEntity {
     @Column(unique = true)
     private String email;
     private String password;
-    private String name;
+    @Column(unique = true)
+    private String nickName;
     private String profileImgPath;
     private Boolean kakaoSignUp;
 
@@ -29,10 +29,10 @@ public class User extends BaseTimeEntity {
     private Role role;
 
     @Builder
-    public User(String email, String password, String name, String profileImgPath, Boolean kakaoSignUp, Role role) {
+    public User(String email, String password, String nickName, String profileImgPath, Boolean kakaoSignUp, Role role) {
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.nickName = nickName;
         this.profileImgPath = profileImgPath;
         this.kakaoSignUp = kakaoSignUp;
         this.role = role;
