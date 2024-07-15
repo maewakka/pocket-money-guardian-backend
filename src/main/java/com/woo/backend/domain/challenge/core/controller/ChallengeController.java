@@ -36,4 +36,11 @@ public class ChallengeController {
         return challengeFacade.getChallengeDetails(id, user);
     }
 
+    @DeleteMapping("/{challengeId}/{dropUserId}")
+    public ResponseEntity<String> dropUserFromChallenge(@PathVariable(name = "challengeId") Long challengeId, @PathVariable(name = "dropUserId") Long dropUserId, @CurrentUser User user) {
+        challengeFacade.dropParticipants(user, dropUserId, challengeId);
+
+        return ResponseEntity.ok("유저를 강퇴하였습니다.");
+    }
+
 }
