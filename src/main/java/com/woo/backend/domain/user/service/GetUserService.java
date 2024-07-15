@@ -25,6 +25,9 @@ public class GetUserService {
         return userRepository.findUserByEmail(email).orElseThrow(() -> new BizException("user_not_found"));
     }
 
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new BizException("user_not_found"));
+    }
     public User findUserByEmailAndPassword(SignInReq req) {
         User user = userRepository.findUserByEmail(req.getEmail()).orElseThrow(() -> new BizException("login_fail"));
         if(!passwordEncoder.matches(req.getPassword(), user.getPassword())) throw new BizException("login_fail");

@@ -20,6 +20,7 @@ email_not_verified:
 duplicated_nickname:
   status: 409
   message: 이미 존재하는 닉네임입니다.
+
 ### JWT ###
 token_expired:
   status: 401
@@ -43,3 +44,6 @@ challenge_already_exist:
 challenge_not_found:
   status: 404
   message: 해당 챌린지를 찾을 수 없습니다.
+participant_not_found:
+  status: 404
+  message: 해당 참가자를 찾을 수 없습니다.
