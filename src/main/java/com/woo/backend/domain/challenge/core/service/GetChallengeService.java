@@ -1,6 +1,7 @@
 package com.woo.backend.domain.challenge.core.service;
 
 import com.woo.backend.domain.challenge.core.dto.resp.ChallengeResp;
+import com.woo.backend.domain.challenge.core.dto.resp.GetOwnChallengeListResp;
 import com.woo.backend.domain.challenge.core.entity.Challenge;
 import com.woo.backend.domain.challenge.core.entity.Participants;
 import com.woo.backend.domain.challenge.core.entity.repository.ChallengeRepository;
@@ -35,5 +36,12 @@ public class GetChallengeService {
         List<UserResp> participants = participantsRepository.findAllByChallenge(challenge).stream().map(participant -> UserResp.of(participant.getParticipant())).toList();
 
         return ChallengeResp.of(challenge, participants);
+    }
+
+    public List<GetOwnChallengeListResp> getOwnChallengeList(User user) {
+        return participantsRepository.findAllByParticipant(user).stream()
+                .map(Participants::getChallenge)
+                .map(GetOwnChallengeListResp::of)
+                .toList();
     }
 }

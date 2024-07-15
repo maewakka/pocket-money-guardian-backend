@@ -3,12 +3,15 @@ package com.woo.backend.domain.challenge.core.controller;
 import com.woo.backend.domain.challenge.core.dto.req.ChallengeReq;
 import com.woo.backend.domain.challenge.core.dto.req.JoinChallengeReq;
 import com.woo.backend.domain.challenge.core.dto.resp.ChallengeResp;
+import com.woo.backend.domain.challenge.core.dto.resp.GetOwnChallengeListResp;
 import com.woo.backend.domain.challenge.core.facade.ChallengeFacade;
 import com.woo.backend.domain.user.entity.User;
 import com.woo.backend.global.security.dto.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +44,11 @@ public class ChallengeController {
         challengeFacade.dropParticipants(user, dropUserId, challengeId);
 
         return ResponseEntity.ok("유저를 강퇴하였습니다.");
+    }
+
+    @GetMapping("/own")
+    public List<GetOwnChallengeListResp> getOwnChallengeList(@CurrentUser User user) {
+        return challengeFacade.getOwnChallengeList(user);
     }
 
 }

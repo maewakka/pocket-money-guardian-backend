@@ -10,13 +10,13 @@ public class SignUpReq {
 
     private String email;
     private String password;
-    private String nickName;
+    private String name;
 
     public User toEntity(BCryptPasswordEncoder passwordEncoder) {
         return User.builder()
                 .email(email)
                 .password(passwordEncoder.encode(password))
-                .nickName(nickName)
+                .nickName(name)
                 .role(Role.USER)
                 .kakaoSignUp(false)
                 .profileImgPath("profile-img/default_profile.png")

@@ -21,7 +21,7 @@ public class RegisterUserService {
 
     public void createUser(final SignUpReq req) {
         if(duplicateEmailCheck(req.getEmail())) throw new BizException("user_already_exist");
-        if(duplicateEmailCheck(req.getNickName())) throw new BizException("duplicated_nickname");
+        if(duplicateEmailCheck(req.getName())) throw new BizException("duplicated_nickname");
 
         EmailVerifyingDto emailVerifyingDto = (EmailVerifyingDto) redisTemplate.opsForValue().get("verify:" + req.getEmail());
         if(emailVerifyingDto == null || !emailVerifyingDto.getStatus()) throw new BizException("email_not_verified");

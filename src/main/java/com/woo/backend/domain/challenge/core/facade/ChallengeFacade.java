@@ -3,6 +3,7 @@ package com.woo.backend.domain.challenge.core.facade;
 import com.woo.backend.domain.challenge.core.dto.req.ChallengeReq;
 import com.woo.backend.domain.challenge.core.dto.req.JoinChallengeReq;
 import com.woo.backend.domain.challenge.core.dto.resp.ChallengeResp;
+import com.woo.backend.domain.challenge.core.dto.resp.GetOwnChallengeListResp;
 import com.woo.backend.domain.challenge.core.entity.Challenge;
 import com.woo.backend.domain.challenge.core.entity.Participants;
 import com.woo.backend.domain.challenge.core.service.*;
@@ -49,5 +50,10 @@ public class ChallengeFacade {
         Participants participants = getParticipantService.getParticipantByChallengeAndUser(challenge, dropUser);
 
         deleteParticipantsService.dropParticipant(challenge, user, participants);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetOwnChallengeListResp> getOwnChallengeList(User user) {
+        return getChallengeService.getOwnChallengeList(user);
     }
 }

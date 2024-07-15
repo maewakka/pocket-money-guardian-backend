@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,9 @@ public class GetHistoryService {
                     .build());
         }
 
-        return resp;
+        return resp.stream()
+                .sorted(Comparator.comparing(GetChallengeHistoryResp::getDate).reversed())
+                .collect(Collectors.toList());
     }
 
     private Integer getTotalAmount(List<ChallengeHistory> histories) {
