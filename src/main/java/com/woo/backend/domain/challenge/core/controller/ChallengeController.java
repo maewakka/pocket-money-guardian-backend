@@ -2,15 +2,13 @@ package com.woo.backend.domain.challenge.core.controller;
 
 import com.woo.backend.domain.challenge.core.dto.req.ChallengeReq;
 import com.woo.backend.domain.challenge.core.dto.req.JoinChallengeReq;
+import com.woo.backend.domain.challenge.core.dto.resp.ChallengeResp;
 import com.woo.backend.domain.challenge.core.facade.ChallengeFacade;
 import com.woo.backend.domain.user.entity.User;
 import com.woo.backend.global.security.dto.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +29,11 @@ public class ChallengeController {
         challengeFacade.addParticipantsToChallenge(req);
 
         return ResponseEntity.ok("유저를 추가하였습니다.");
+    }
+
+    @GetMapping("/{id}")
+    public ChallengeResp getChallenge(@PathVariable(name = "id") Long id, @CurrentUser User user) {
+        return challengeFacade.getChallengeDetails(id, user);
     }
 
 }

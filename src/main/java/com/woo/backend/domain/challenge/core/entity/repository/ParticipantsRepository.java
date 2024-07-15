@@ -14,6 +14,7 @@ public interface ParticipantsRepository extends JpaRepository<Participants, Long
     Boolean existsByParticipant(User participant);
 
     List<Participants> findAllByChallenge(Challenge challenge);
+    List<Participants> findAllByParticipant(User participant);
 
     Optional<Participants> findParticipantsByChallengeAndParticipant(Challenge challenge, User participant);
 
