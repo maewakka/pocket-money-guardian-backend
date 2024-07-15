@@ -57,6 +57,13 @@ dependencies {
 
 	// minio
 	implementation 'io.minio:minio:8.5.2'
+
+	// mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// spring
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 tasks.named('test') {

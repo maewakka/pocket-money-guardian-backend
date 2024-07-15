@@ -24,7 +24,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final GuardianUserDetailsService guardianUserDetailsService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    private final static List<String> PERMIT_URL = List.of("/users/sign-up", "/users/sign-in");
+    private final static List<String> PERMIT_URL = List.of("/users/sign-up", "/users/sign-in", "/users/code/send", "/users/code/verify");
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(!PERMIT_URL.contains(request.getServletPath())) {

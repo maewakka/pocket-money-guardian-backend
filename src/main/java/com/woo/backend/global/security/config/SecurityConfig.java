@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/users/sign-up", "/users/sign-in").permitAll()
+                        .requestMatchers("/users/sign-up", "/users/sign-in", "/users/code/send", "/users/code/verify").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtFilter(guardianUserDetailsService, jwtTokenProvider),UsernamePasswordAuthenticationFilter.class);
