@@ -16,7 +16,7 @@ public class GetUserWithCachingService {
 
     private final UserRepository userRepository;
 
-    @Cacheable(value = USER_CACHE, key = "'user.' + #email")
+//    @Cacheable(value = USER_CACHE, key = "'user.' + #email")
     public User getUserByEmail(String email) {
         return userRepository.findUserByEmail(email).orElseThrow(() -> new BizException("user_not_found"));
     }
