@@ -5,6 +5,7 @@ import com.woo.backend.domain.challenge.core.entity.Participants;
 import com.woo.backend.domain.components.history.dto.resp.GetChallengeHistoryResp;
 import com.woo.backend.domain.components.history.entity.ChallengeHistory;
 import com.woo.backend.domain.components.history.entity.repository.ChallengeHistoryRepository;
+import com.woo.exception.util.BizException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,10 @@ public class GetHistoryService {
         return resp.stream()
                 .sorted(Comparator.comparing(GetChallengeHistoryResp::getDate).reversed())
                 .collect(Collectors.toList());
+    }
+
+    public ChallengeHistory getHistoryById(Long historyId) {
+        return challengeHistoryRepository.findById(historyId).orElseThrow(() -> new BizException("history_not_found"));
     }
 
     private Integer getTotalAmount(List<ChallengeHistory> histories) {

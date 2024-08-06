@@ -31,4 +31,9 @@ public class ChallengeHistory {
         this.content = content;
         this.amount = amount;
     }
+
+    public void updateHistory(String content, Integer amount) {
+        this.content = content;
+        this.amount = amount;
+    }
 }

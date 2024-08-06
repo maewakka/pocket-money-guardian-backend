@@ -19,11 +19,13 @@ public class GetChallengeHistoryResp {
     @Data
     @Builder
     public static class History {
+        private Long historyId;
         private String content;
         private Integer amount;
 
         public static History of(ChallengeHistory challengeHistory) {
             return History.builder()
+                    .historyId(challengeHistory.getId())
                     .content(challengeHistory.getContent())
                     .amount(challengeHistory.getAmount())
                     .build();
