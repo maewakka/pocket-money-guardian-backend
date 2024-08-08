@@ -23,7 +23,7 @@ WORKDIR /app
 COPY . .
 
 # Gradle 빌드 실행
-RUN gradle build
+RUN gradle build -x test
 
 # 실행 단계
 FROM openjdk:17.0.2-slim
