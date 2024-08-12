@@ -55,6 +55,7 @@ public class GetHistoryService {
     }
 
     private Integer getTotalAmount(List<ChallengeHistory> histories) {
+        log.info(histories.toString());
         return histories.stream().mapToInt(ChallengeHistory::getAmount).sum();
     }
 
