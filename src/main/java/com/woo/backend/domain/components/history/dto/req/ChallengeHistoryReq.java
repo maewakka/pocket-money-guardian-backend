@@ -17,13 +17,13 @@ public class ChallengeHistoryReq {
     @NotNull
     private String content;
     @Min(0)
-    private Integer amount = 0;
+    private Integer amount;
     @NotNull
     private Long challengeId;
 
     public ChallengeHistory toEntity(Participants participant) {
         return ChallengeHistory.builder()
-                .amount(amount)
+                .amount(amount == null ? 0 : amount)
                 .content(content)
                 .regDate(date)
                 .participant(participant)
